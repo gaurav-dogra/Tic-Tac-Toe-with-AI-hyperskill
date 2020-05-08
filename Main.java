@@ -6,17 +6,45 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter cells: ");
-        final String input = scanner.next();
-        final Grid grid = new Grid(input);
-        grid.print();
-        getNextMove(scanner, grid);
-        grid.print();
-        System.out.println(grid.getStatus());
+        Grid grid = new Grid();
+
+        while (true) {
+
+            grid.print();
+
+            getNextMove(grid); // user move
+            grid.print();
+
+            if (grid.getStatus() != ResultStrings.GAME_NOT_FINISHED) {
+                System.out.println(grid.getStatus());
+                break;
+            }
+
+            moveByAI(grid); // AI move
+            grid.print();
+
+            if (grid.getStatus() != ResultStrings.GAME_NOT_FINISHED) {
+                System.out.println(grid.getStatus());
+                break;
+            }
+        }
     }
 
-    private static void getNextMove(Scanner scanner, Grid gri{
+    private static void moveByAI(Grid grid) {
+        System.out.println("Making move level \"easy\"");
+        while (true) {
+            int row = (int) (Math.random() * 3);
+            int column = (int) (Math.random() * 3);
+            if (grid.isEmpty(row, column)) {
+                grid.changeCell(row, column);
+                break;
+            }
+        }
+    }
+
+    private static void getNextMove(Grid grid) {
+        final Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.print("Enter the coordinates: ");
             int coordinateOne;
@@ -26,13 +54,15 @@ public class Main {
 
                 coordinateOne = scanner.nextInt();
                 coordinateTwo = scanner.nextInt();
+                coordinateOne--;
+                coordinateTwo--;
             } catch (InputMismatchException e) {
                 System.out.println("You should enter numbers!");
                 scanner.nextLine();
                 continue;
             }
 
-            if (coordinateOne > 3 || coordinateTwo > 3) {
+            if (coordinateOne > 2 || coordinateTwo > 2) {
                 System.out.println("Coordinates should be from 1 to 3!");
                 continue;
             }
@@ -46,4 +76,5 @@ public class Main {
 
         }
     }
+
 }
