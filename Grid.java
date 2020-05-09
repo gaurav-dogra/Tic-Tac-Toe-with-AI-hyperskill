@@ -59,28 +59,28 @@ public class Grid {
     }
 
     private boolean winOf(char x) {
-        if (grid[0][2] == x && grid[1][2] == x && grid[2][2] == x) {
+        if (grid[0][2] == x && grid[1][2] == x && grid[2][2] == x) { // first row
             return true;
         }
-        if (grid[0][1] == x && grid[1][1] == x && grid[2][1] == x) {
+        if (grid[0][1] == x && grid[1][1] == x && grid[2][1] == x) { // second row
             return true;
         }
-        if (grid[0][0] == x && grid[1][0] == x && grid[2][0] == x) {
+        if (grid[0][0] == x && grid[1][0] == x && grid[2][0] == x) { // third row
             return true;
         }
-        if (grid[0][2] == x && grid[0][1] == x && grid[0][0] == x) {
+        if (grid[0][2] == x && grid[0][1] == x && grid[0][0] == x) { // first column
             return true;
         }
-        if (grid[1][2] == x && grid[1][1] == x && grid[1][0] == x) {
+        if (grid[1][2] == x && grid[1][1] == x && grid[1][0] == x) { // second column
             return true;
         }
-        if (grid[2][2] == x && grid[2][1] == x && grid[2][0] == x) {
+        if (grid[2][2] == x && grid[2][1] == x && grid[2][0] == x) { // third column
             return true;
         }
-        if (grid[0][2] == x && grid[1][1] == x && grid[2][0] == x) {
+        if (grid[0][2] == x && grid[1][1] == x && grid[2][0] == x) { // left -> right diagonal
             return true;
         }
-        if (grid[0][0] == x && grid[1][1] == x && grid[2][2] == x) {
+        if (grid[0][0] == x && grid[1][1] == x && grid[2][2] == x) { // right -> left diagonal
             return true;
         }
         return false;
