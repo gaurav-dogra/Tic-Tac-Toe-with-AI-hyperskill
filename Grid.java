@@ -28,13 +28,19 @@ public class Grid {
         return grid[coordinateOne][coordinateTwo] == ' ';
     }
 
-    public void changeCell(int coordinateOne, int coordinateTwo) {
-        char ch = count('X') == count('O') ? 'X' : 'O';
-
+    public void changeCell(int coordinateOne, int coordinateTwo, Character ch) {
         grid[coordinateOne][coordinateTwo] = ch;
     }
 
-    private int count(char ch) {
+    public Character getCellVal(int coordinateOne, int coordinateTwo) {
+        return grid[coordinateOne][coordinateTwo];
+    }
+
+    public Character getCurrentPlayerSign() {
+        return count('X') == count('O') ? 'X' : 'O';
+    }
+
+    public int count(char ch) {
         int count = 0;
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j <= 2; j++) {
@@ -58,7 +64,7 @@ public class Grid {
         }
     }
 
-    private boolean winOf(char x) {
+    public boolean winOf(char x) {
         if (grid[0][2] == x && grid[1][2] == x && grid[2][2] == x) { // first row
             return true;
         }

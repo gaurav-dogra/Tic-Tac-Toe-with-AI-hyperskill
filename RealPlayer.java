@@ -34,7 +34,7 @@ public class RealPlayer implements IMoveStrategy {
             if (!grid.isEmpty(coordinateOne, coordinateTwo)) {
                 System.out.println("This cell is occupied! Choose another one!");
             } else {
-                grid.changeCell(coordinateOne, coordinateTwo);
+                grid.changeCell(coordinateOne, coordinateTwo, grid.getCurrentPlayerSign());
                 break;
             }
 

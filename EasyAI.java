@@ -8,7 +8,7 @@ public class EasyAI implements IMoveStrategy {
             int row = (int) (Math.random() * 3);
             int column = (int) (Math.random() * 3);
             if (grid.isEmpty(row, column)) {
-                grid.changeCell(row, column);
+                grid.changeCell(row, column, grid.getCurrentPlayerSign());
                 break;
             }
         }

@@ -16,12 +16,8 @@ public class Main {
             if ("exit".equals(input)) {
                 break;
             }
-            // correct input options are
-            // start easy easy
-            // start user user
-            // start user easy
-            // start easy user
-            if (!input.matches("^start\\s+(easy|user)\\s+(easy|user)")) {
+            // theree types of players User: realPlayer, easy: easyAI player, medium: mediumAI player
+            if (!input.matches("^start\\s+(easy|user|medium)\\s+(easy|user|medium)")) {
                 System.out.println("Bad parameters!");
                 continue;
             }
@@ -63,6 +59,8 @@ public class Main {
     private static Context getPlayer(String s) {
         if ("easy".equals(s)) {
             return new Context(new EasyAI());
+        } else if("medium".equals(s)){
+            return new Context(new MediumAI());
         } else {
             return new Context(new RealPlayer());
         }
