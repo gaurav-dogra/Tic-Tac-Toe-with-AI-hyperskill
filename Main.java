@@ -17,7 +17,7 @@ public class Main {
                 break;
             }
             // theree types of players User: realPlayer, easy: easyAI player, medium: mediumAI player
-            if (!input.matches("^start\\s+(easy|user|medium)\\s+(easy|user|medium)")) {
+            if (!input.matches("^start\\s+(easy|user|medium|hard)\\s+(easy|user|medium|hard)")) {
                 System.out.println("Bad parameters!");
                 continue;
             }
@@ -28,8 +28,8 @@ public class Main {
             Context playerTwo = getPlayer(inputArray[2]);
 
             ResultStrings result = playGame(playerOne, playerTwo, grid);
-            grid = new Grid(); // reset all the box to empty
             System.out.println(result.toString());
+            grid = new Grid(); // reset all the box to empty
         }
     }
 
@@ -59,8 +59,10 @@ public class Main {
     private static Context getPlayer(String s) {
         if ("easy".equals(s)) {
             return new Context(new EasyAI());
-        } else if("medium".equals(s)){
+        } else if ("medium".equals(s)) {
             return new Context(new MediumAI());
+        } else if ("hard".equals(s)) {
+            return new Context(new HardAI());
         } else {
             return new Context(new RealPlayer());
         }

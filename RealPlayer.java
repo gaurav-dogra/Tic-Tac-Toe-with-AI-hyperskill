@@ -17,9 +17,7 @@ public class RealPlayer implements IMoveStrategy {
 
                 coordinateOne = scanner.nextInt();
                 coordinateTwo = scanner.nextInt();
-                // arrays start from 0; for user first element is 1
-                coordinateOne--;
-                coordinateTwo--;
+
             } catch (InputMismatchException e) {
                 System.out.println("You should enter numbers!");
                 scanner.nextLine();
@@ -27,14 +25,14 @@ public class RealPlayer implements IMoveStrategy {
             }
 
             if (coordinateOne > 2 || coordinateTwo > 2) {
-                System.out.println("Coordinates should be from 1 to 3!");
+                System.out.println("Coordinates should be from 0 to 2!");
                 continue;
             }
 
             if (!grid.isEmpty(coordinateOne, coordinateTwo)) {
                 System.out.println("This cell is occupied! Choose another one!");
             } else {
-                grid.changeCell(coordinateOne, coordinateTwo, grid.getCurrentPlayerSign());
+                grid.updateCell(coordinateOne, coordinateTwo, grid.getCurrentPlayerSign());
                 break;
             }
 
