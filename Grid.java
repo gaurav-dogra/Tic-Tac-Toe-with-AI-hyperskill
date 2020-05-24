@@ -1,19 +1,18 @@
 package tictactoe;
 
 public class Grid {
-
     private final Character[][] grid = {
             {' ', ' ', ' '},
             {' ', ' ', ' '},
-            {' ', ' ', ' '}
+            {' ', ' ', ' '},
     };
 
     public void print() {
         System.out.println("---------"); // top border
-        for (int i = 0; i <= 2; i++) {
+        for (int row = 0; row < 3; row++) {
             System.out.print("| "); // left border
-            for (int j = 0; j <= 2; j++) {
-                System.out.print(grid[i][j] + " ");
+            for (int column = 0; column < 3; column++) {
+                System.out.print(grid[row][column] + " ");
             }
             System.out.print("|\n"); // right border
 
@@ -21,27 +20,23 @@ public class Grid {
         System.out.println("---------"); // bottom border
     }
 
-    public boolean isEmpty(int coordinateOne, int coordinateTwo) {
-        return grid[coordinateOne][coordinateTwo] == ' ';
+    public boolean isEmpty(int row, int column) {
+        return grid[row][column] == ' ';
     }
 
-    public void updateCell(int coordinateOne, int coordinateTwo, Character ch) {
-        grid[coordinateOne][coordinateTwo] = ch;
-    }
-
-    public Character getCellVal(int coordinateOne, int coordinateTwo) {
-        return grid[coordinateOne][coordinateTwo];
+    public void updateCell(int row, int column, Character ch) {
+        grid[row][column] = ch;
     }
 
     public Character getCurrentPlayerSign() {
         return count('X') == count('O') ? 'X' : 'O';
     }
 
-    public int count(char ch) {
+    private int count(char ch) {
         int count = 0;
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 2; i >= 0; i--) {
             for (int j = 0; j <= 2; j++) {
-                if (grid[i][j] == ch) {
+                if (grid[j][i] == ch) {
                     count++;
                 }
             }
@@ -61,29 +56,29 @@ public class Grid {
         }
     }
 
-    public boolean winOf(char x) {
-        if (grid[0][0] == x && grid[0][1] == x && grid[0][2] == x) { // first row
+    private boolean winOf(char x) {
+        if (grid[0][2] == x && grid[1][2] == x && grid[2][2] == x) { // first row
             return true;
         }
-        if (grid[1][0] == x && grid[1][1] == x && grid[1][2] == x) { // second row
+        if (grid[0][1] == x && grid[1][1] == x && grid[2][1] == x) { // second row
             return true;
         }
-        if (grid[2][0] == x && grid[2][1] == x && grid[2][2] == x) { // third row
+        if (grid[0][0] == x && grid[1][0] == x && grid[2][0] == x) { // third row
             return true;
         }
-        if (grid[0][0] == x && grid[1][0] == x && grid[2][0] == x) { // first column
+        if (grid[0][2] == x && grid[0][1] == x && grid[0][0] == x) { // first column
             return true;
         }
-        if (grid[0][1] == x && grid[1][1] == x && grid[2][1] == x) { // second column
+        if (grid[1][2] == x && grid[1][1] == x && grid[1][0] == x) { // second column
             return true;
         }
-        if (grid[0][2] == x && grid[1][2] == x && grid[2][2] == x) { // third column
+        if (grid[2][2] == x && grid[2][1] == x && grid[2][0] == x) { // third column
             return true;
         }
-        if (grid[0][0] == x && grid[1][1] == x && grid[2][2] == x) { // left -> right diagonal
+        if (grid[0][2] == x && grid[1][1] == x && grid[2][0] == x) { // left -> right diagonal
             return true;
         }
-        if (grid[2][0] == x && grid[1][1] == x && grid[0][2] == x) { // right -> left diagonal
+        if (grid[0][0] == x && grid[1][1] == x && grid[2][2] == x) { // right -> left diagonal
             return true;
         }
         return false;

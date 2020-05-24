@@ -38,7 +38,8 @@ public class MediumAI implements IMoveStrategy {
             for (int j = 0; j <= 2; j++) {
                 if (grid.isEmpty(i, j)) {
                     grid.updateCell(i, j, checkingFor);
-                    if (grid.winOf(checkingFor)) {
+                    ResultStrings status = grid.getStatus();
+                    if (status != ResultStrings.GAME_NOT_FINISHED) {
                         grid.updateCell(i, j, currentPlayerSign);
                         return true;
                     } else {

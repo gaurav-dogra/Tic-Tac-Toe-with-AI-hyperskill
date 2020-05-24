@@ -28,13 +28,12 @@ public class Main {
             Context playerTwo = getPlayer(inputArray[2]);
 
             ResultStrings result = playGame(playerOne, playerTwo, grid);
-            System.out.println(result.toString());
             grid = new Grid(); // reset all the box to empty
+            System.out.println(result.toString());
         }
     }
 
     private static ResultStrings playGame(Context playerOne, Context playerTwo, Grid grid) {
-        grid.print();
         while (true) {
 
             playerOne.move(grid);
@@ -62,9 +61,9 @@ public class Main {
         } else if ("medium".equals(s)) {
             return new Context(new MediumAI());
         } else if ("hard".equals(s)) {
-            return new Context(new HardAI());
+            return new Context((new HardAI()));
         } else {
-            return new Context(new RealPlayer());
+            return new Context(new HumanPlayer());
         }
     }
 

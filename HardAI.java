@@ -2,56 +2,84 @@ package tictactoe;
 
 public class HardAI implements IMoveStrategy {
 
-    private int row = -1;
-    private int column = -1;
-
     @Override
     public void move(Grid grid) {
-        //System.out.println("HardAI.move");
+        System.out.println("Making move level \"hard\"");
         boolean isMaximizer = grid.getCurrentPlayerSign() == 'X';
-        int depth = 1;
-        minmax(grid, depth, isMaximizer);
-        grid.updateCell(row, column, grid.getCurrentPlayerSign());
+        int finalRow = -1;
+        int finalColumn = -1;
+        int score = isMaximizer ? -1000 : 1000;
 
+        if (isMaximizer) {
+            for (int row = 0; row < 3; row++) {
+                for (int column = 0; column < 3; column++) {
+                    if (grid.isEmpty(row, column)) {
+                        grid.updateCell(row, column, 'X');
+                        int cellScore = minimax(grid, false);
+                        grid.updateCell(row, column, ' ');
+                        if (cellScore > score) {
+                            score = cellScore;
+                            finalRow = row;
+                            finalColumn = column;
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int row = 0; row < 3; row++) {
+                for (int column = 0; column < 3; column++) {
+                    if (grid.isEmpty(row, column)) {
+                        grid.updateCell(row, column, 'O');
+                        int cellScore = minimax(grid, true);
+                        grid.updateCell(row, column, ' ');
+                        if (cellScore < score) {
+                            score = cellScore;
+                            finalRow = row;
+                            finalColumn = column;
+                        }
+                    }
+                }
+            }
+
+        }
+        grid.updateCell(finalRow, finalColumn, grid.getCurrentPlayerSign());
     }
 
-    private int minmax(Grid grid, int depth, boolean isMaximizer) {
-        //grid.print();
-        //System.out.println("isMaximizer = " + isMaximizer);
-        if(grid.winOf('X')) {
+    private int minimax(Grid grid, boolean isMaximizer) {
+        if (grid.getStatus() == ResultStrings.X_WINS) {
             return 1;
-        } else if (grid.winOf('O')) {
+        } else if (grid.getStatus() == ResultStrings.O_WINS) {
             return -1;
-        } else if (grid.count('X') == 5) { // Tie
+        } else if (grid.getStatus() == ResultStrings.DRAW) {
             return 0;
         }
-        int minScore = Integer.MAX_VALUE;
-        int maxScore = Integer.MIN_VALUE;
-        int score = isMaximizer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int score = isMaximizer ? -1000 : 1000;
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid.isEmpty(i, j)) {
-                    grid.updateCell(i, j, grid.getCurrentPlayerSign());
-                    score = minmax(grid, depth + 1, !isMaximizer);
-                    //System.out.println("score = " + score);
-                    if (isMaximizer) {
-                        score = Math.max(score, maxScore);
-                        row = i;
-                        column = j;
-                    } else {
-                        score = Math.min(score, minScore);
-                        row = i;
-                        column = j;
+        if (isMaximizer) {
+
+            for (int row = 0; row < 3; row++) {
+                for (int column = 0; column < 3; column++) {
+                    if (grid.isEmpty(row, column)) {
+                        grid.updateCell(row, column, grid.getCurrentPlayerSign());
+                        int cellScore = minimax(grid, false);
+                        score = Math.max(score, cellScore);
+                        grid.updateCell(row, column, ' ');
                     }
-
-                    grid.updateCell(i, j, ' ');
+                }
+            }
+            return score;
+        } else {
+            for (int row = 0; row < 3; row++) {
+                for (int column = 0; column < 3; column++) {
+                    if (grid.isEmpty(row, column)) {
+                        grid.updateCell(row, column, grid.getCurrentPlayerSign());
+                        int cellScore = minimax(grid, true);
+                        score = Math.min(score, cellScore);
+                        grid.updateCell(row, column, ' ');
+                    }
                 }
             }
         }
-        //System.out.println("returning score = " + score);
-        //grid.print();
         return score;
     }
-
 }
