@@ -9,15 +9,18 @@ public class Main {
         Grid grid = new Grid();
 
         while (true) {
-
+            System.out.println("Pick Players from: user, EasyAI, MediumAI, HardAI" );
+            System.out.println("You can play any two players against each other");
+            System.out.println("e.g. user vs EasyAI");
+            System.out.println("e.g. EasyAI vs HardAI");
             System.out.print("Input command: ");
             String input = scanner.nextLine().toLowerCase();
 
             if ("exit".equals(input)) {
                 break;
             }
-            // theree types of players User: realPlayer, easy: easyAI player, medium: mediumAI player
-            if (!input.matches("^start\\s+(easy|user|medium|hard)\\s+(easy|user|medium|hard)")) {
+            // types of players User: humanPlayer, easy: easyAI player, medium: mediumAI player, hard: Hard AI Player
+            if (!input.matches("^start\\s+(easyAI|user|mediumAI|hardAI)\\s+vs\\s+(easyAI|user|mediumAI|hardAI)")) {
                 System.out.println("Bad parameters!");
                 continue;
             }
