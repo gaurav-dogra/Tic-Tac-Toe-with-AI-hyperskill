@@ -11,8 +11,8 @@ public class Main {
         while (true) {
             System.out.println("Pick Players from: user, EasyAI, MediumAI, HardAI" );
             System.out.println("You can play any two players against each other");
-            System.out.println("e.g. user vs EasyAI");
-            System.out.println("e.g. EasyAI vs HardAI");
+            System.out.println("e.g. start user vs EasyAI");
+            System.out.println("e.g. start EasyAI vs HardAI");
             System.out.print("Input command: ");
             String input = scanner.nextLine().toLowerCase();
 
@@ -20,7 +20,7 @@ public class Main {
                 break;
             }
             // types of players User: humanPlayer, easy: easyAI player, medium: mediumAI player, hard: Hard AI Player
-            if (!input.matches("^start\\s+(easyAI|user|mediumAI|hardAI)\\s+vs\\s+(easyAI|user|mediumAI|hardAI)")) {
+            if (!input.matches("^start\\s+(easyai|user|mediumai|hardai)\\s+vs\\s+(easyai|user|mediumai|hardai)")) {
                 System.out.println("Bad parameters!");
                 continue;
             }
@@ -28,11 +28,13 @@ public class Main {
             String[] inputArray = input.split(" ");
 
             Context playerOne = getPlayer(inputArray[1]);
-            Context playerTwo = getPlayer(inputArray[2]);
+            Context playerTwo = getPlayer(inputArray[3]);
 
             ResultStrings result = playGame(playerOne, playerTwo, grid);
-            grid = new Grid(); // reset all the box to empty
             System.out.println(result.toString());
+            System.out.println();
+            System.out.println();
+            grid = new Grid(); // reset all the box to empty
         }
     }
 
@@ -59,11 +61,11 @@ public class Main {
     }
 
     private static Context getPlayer(String s) {
-        if ("easy".equals(s)) {
+        if ("easyai".equals(s)) {
             return new Context(new EasyAI());
-        } else if ("medium".equals(s)) {
+        } else if ("mediumai".equals(s)) {
             return new Context(new MediumAI());
-        } else if ("hard".equals(s)) {
+        } else if ("hardai".equals(s)) {
             return new Context((new HardAI()));
         } else {
             return new Context(new HumanPlayer());
